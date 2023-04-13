@@ -1,0 +1,10 @@
+.menuItem {
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+    font-size: 18px;
+}
+
+.menuItemLink {
+    margin-left: 12px;
+}
