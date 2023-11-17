@@ -1,0 +1,6 @@
+.imageContainer {
+    background-image: url('/food.jpg');
+    background-size: cover;
+    height: 500px;
+    opacity: 0.3;
+}

@@ -52,7 +52,7 @@ const Menu = (): JSX.Element => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader backgroundColor="pink">Shasha Recepis</DrawerHeader>
+          <DrawerHeader backgroundColor="pink">Shasha Recipes</DrawerHeader>
           <DrawerBody>
             <MenuItem title="Pesquisar" href="/" icon={<SearchIcon />} />
             <MenuItem title="Favoritos" href="/favorites" icon={<StarIcon />} />
