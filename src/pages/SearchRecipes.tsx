@@ -46,7 +46,7 @@ interface RecipeItemProps {
 
 const RecipeItem = ({ title, image }: RecipeItemProps): JSX.Element => {
   return (
-    <Card w={300} display="flex" justifyContent="center" alignItems="center">
+    <Card w={400} display="flex" justifyContent="center" alignItems="center">
       <CardHeader>
         <Heading size="sm" color="pink.500">
           {title}
@@ -56,8 +56,8 @@ const RecipeItem = ({ title, image }: RecipeItemProps): JSX.Element => {
         <Image
           src={image}
           objectFit="contain"
-          h={100}
-          w={150}
+          h={110}
+          w={180}
           borderRadius={20}
         />
       </CardBody>
