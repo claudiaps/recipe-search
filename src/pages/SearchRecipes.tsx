@@ -5,9 +5,14 @@ import {
   Flex,
   Heading,
   Image,
+  Skeleton,
+  Spinner,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useLoaderData } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 interface RecipeType {
   id: number;
@@ -15,34 +20,18 @@ interface RecipeType {
   image: string;
 }
 
-export const recipeLoader = async ({
-  params,
-}: {
-  params: {
-    recipeSearch?: string;
-  };
-}): Promise<RecipeType | []> => {
-  try {
-    const recipes = await axios.get(
-      "https://api.spoonacular.com/recipes/complexSearch",
-      {
-        params: {
-          number: 20,
-          apiKey: "d7cf3f1717bc425cbc62180f7c7e0e7f",
-          query: params.recipeSearch,
-        },
-      }
-    );
-    return recipes.data.results;
-  } catch (err) {
-    throw new Error("Not Found");
-  }
-};
-
 interface RecipeItemProps {
   title: string;
   image: string;
 }
+
+const RecipeSkeleton = (): JSX.Element => (
+  <Stack width={100} height={10}>
+    <Skeleton height="20px" />
+    <Skeleton height="20px" />
+    <Skeleton height="20px" />
+  </Stack>
+);
 
 const RecipeItem = ({ title, image }: RecipeItemProps): JSX.Element => {
   return (
@@ -66,24 +55,59 @@ const RecipeItem = ({ title, image }: RecipeItemProps): JSX.Element => {
 };
 
 const SearchRecipes = (): JSX.Element => {
-  const results = useLoaderData() as RecipeType[];
+  const { recipeSearch } = useParams();
+
+  const [recipes, setRecipes] = useState<RecipeType[]>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getRecipes = useCallback(async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        "https://api.spoonacular.com/recipes/complexSearch",
+        {
+          params: {
+            number: 20,
+            apiKey: "d7cf3f1717bc425cbc62180f7c7e0e7f",
+            query: recipeSearch,
+          },
+        }
+      );
+      setRecipes(data.results);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void getRecipes();
+  }, []);
 
   const renderRecipes = (): JSX.Element => {
+    if (recipes?.length === 0)
+      return <Text>Ops! Não foram encontradas receitas para essa busca.</Text>;
     return (
-      <>
-        {results.map((recipe: RecipeType) => (
+      <div>
+        {recipes?.map((recipe: RecipeType) => (
           <RecipeItem
             title={recipe.title}
             image={recipe.image}
             key={recipe.id}
           />
         ))}
-      </>
+      </div>
     );
   };
 
   return (
-    <div>
+    <>
+      {loading && !recipes && (
+        <Flex justifyContent="center" alignItems="center" marginTop={20}>
+          <Spinner size="xl" color="pink" />
+        </Flex>
+      )}
       <Flex
         direction="row"
         flexWrap="wrap"
@@ -93,7 +117,7 @@ const SearchRecipes = (): JSX.Element => {
       >
         {renderRecipes()}
       </Flex>
-    </div>
+    </>
   );
 };
 

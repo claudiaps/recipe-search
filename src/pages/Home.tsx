@@ -1,4 +1,8 @@
+import { type ChangeEvent, useState } from "react";
+
 import { Avatar, Box, Flex, Heading } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import InputSearch from "../components/InputSearch";
 import "./Home.css";
 import cusines from "../enums/cusinesEnum";
@@ -18,6 +22,18 @@ const CusinesItem = ({ name, imageUrl }: CusinesItemProps): JSX.Element => {
 };
 
 const Home = (): JSX.Element => {
+  const navigate = useNavigate();
+
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
+    setSearchValue(event.target.value);
+  };
+
+  const onSearch = (): void => {
+    navigate(`/search/${searchValue}`);
+  };
+
   const renderRecipesCusines = (): JSX.Element => {
     return (
       <Flex justifyContent="space-between">
@@ -38,7 +54,12 @@ const Home = (): JSX.Element => {
           height="100%"
           marginInline={150}
         >
-          <InputSearch />
+          <InputSearch
+            placeholder="Busque por receitas"
+            inputValue={searchValue}
+            onChange={onChangeInput}
+            onSearch={onSearch}
+          />
         </Flex>
       </div>
       <Box paddingInline={16} paddingBlock={8}>

@@ -1,22 +1,31 @@
 import { Search2Icon } from "@chakra-ui/icons";
-import {
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { type ChangeEvent } from "react";
 
-const InputSearch = (): JSX.Element => {
+interface InputSearchProps {
+  placeholder: string;
+  onSearch: () => void;
+  onChange: (value: ChangeEvent<HTMLInputElement>) => void;
+  inputValue: string;
+}
+
+const InputSearch = ({
+  placeholder,
+  onSearch,
+  onChange,
+  inputValue,
+}: InputSearchProps): JSX.Element => {
   return (
-    <InputGroup>
-      <Input variant="filled" placeholder="Busque por receitas" size="lg" />
-      <InputRightElement marginTop={1}>
-        <IconButton
-          color="var(--chakra-colors-pink-700)"
-          aria-label="open menu"
-          icon={<Search2Icon />}
-          size="lg"
-        />
+    <InputGroup size="lg">
+      <Input
+        bg="white"
+        placeholder={placeholder}
+        focusBorderColor="pink.400"
+        value={inputValue}
+        onChange={onChange}
+      />
+      <InputRightElement>
+        <Search2Icon color="pink.400" onClick={onSearch} />
       </InputRightElement>
     </InputGroup>
   );

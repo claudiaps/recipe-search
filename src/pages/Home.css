@@ -1,6 +1,9 @@
 .imageContainer {
-    background-image: url('/food.jpg');
-    background-size: cover;
-    height: 500px;
-    opacity: 0.3;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("/food.jpg");
+  background-size: cover;
+  height: 500px;
 }

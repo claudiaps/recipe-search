@@ -6,7 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import App from "./App";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
-import SearchRecipes, { recipeLoader } from "./pages/SearchRecipes";
+import SearchRecipes from "./pages/SearchRecipes";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,6 @@ const router = createBrowserRouter([
   {
     path: "/search/:recipeSearch",
     element: <SearchRecipes />,
-    loader: recipeLoader,
   },
 ]);
 

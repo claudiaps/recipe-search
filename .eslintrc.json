@@ -1,44 +1,39 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
-    },
-    "globals": {
-        "__dirname": true
-    },
-    "extends": [
-        "plugin:react/recommended",
-        "standard-with-typescript",
-        "plugin:react/recommended",
-        "airbnb",
-        "airbnb-typescript",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
-    ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "project": "tsconfig.eslint.json",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "react-hooks", 
-        "@typescript-eslint", 
-        "prettier"
-    ],
-    "rules": {
-        "import/no-unresolved": "error",
-        "react/button-has-type": 0,
-        "react/function-component-definition": 0,
-        "@typescript-eslint/no-unused-vars": "error",
-        "react/react-in-jsx-scope": 0
-    },
-    "settings": {
-        "import/resolver": {
-          "typescript": {}
-        }
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "globals": {
+    "__dirname": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "standard-with-typescript",
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "project": "tsconfig.eslint.json",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "rules": {
+    "import/no-unresolved": "error",
+    "react/button-has-type": 0,
+    "react/function-component-definition": 0,
+    "@typescript-eslint/no-unused-vars": "error",
+    "react/react-in-jsx-scope": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
     }
+  }
 }
