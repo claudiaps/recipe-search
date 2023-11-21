@@ -5,9 +5,7 @@ import {
   Flex,
   Heading,
   Image,
-  Skeleton,
   Spinner,
-  Stack,
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -25,36 +23,22 @@ interface RecipeItemProps {
   image: string;
 }
 
-const RecipeSkeleton = (): JSX.Element => (
-  <Stack width={100} height={10}>
-    <Skeleton height="20px" />
-    <Skeleton height="20px" />
-    <Skeleton height="20px" />
-  </Stack>
-);
-
 const RecipeItem = ({ title, image }: RecipeItemProps): JSX.Element => {
   return (
-    <Card w={400} display="flex" justifyContent="center" alignItems="center">
+    <Card w={200} display="flex" justifyContent="center" alignItems="center">
       <CardHeader>
         <Heading size="sm" color="pink.500">
           {title}
         </Heading>
       </CardHeader>
       <CardBody>
-        <Image
-          src={image}
-          objectFit="contain"
-          h={110}
-          w={180}
-          borderRadius={20}
-        />
+        <Image src={image} boxSize="150px" borderRadius="full" />
       </CardBody>
     </Card>
   );
 };
 
-const SearchRecipes = (): JSX.Element => {
+const SearchRecipes = () => {
   const { recipeSearch } = useParams();
 
   const [recipes, setRecipes] = useState<RecipeType[]>();
@@ -85,20 +69,12 @@ const SearchRecipes = (): JSX.Element => {
     void getRecipes();
   }, []);
 
-  const renderRecipes = (): JSX.Element => {
+  const renderRecipes = () => {
     if (recipes?.length === 0)
       return <Text>Ops! Não foram encontradas receitas para essa busca.</Text>;
-    return (
-      <div>
-        {recipes?.map((recipe: RecipeType) => (
-          <RecipeItem
-            title={recipe.title}
-            image={recipe.image}
-            key={recipe.id}
-          />
-        ))}
-      </div>
-    );
+    return recipes?.map((recipe: RecipeType) => (
+      <RecipeItem title={recipe.title} image={recipe.image} key={recipe.id} />
+    ));
   };
 
   return (
