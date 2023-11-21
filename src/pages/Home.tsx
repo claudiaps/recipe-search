@@ -10,11 +10,25 @@ import cusines from "../enums/cusinesEnum";
 interface CusinesItemProps {
   name: string;
   imageUrl: string;
+  onClick: (searchValue: string) => void;
+  searchName: string;
 }
 
-const CusinesItem = ({ name, imageUrl }: CusinesItemProps): JSX.Element => {
+const CusinesItem = ({
+  name,
+  imageUrl,
+  onClick,
+  searchName,
+}: CusinesItemProps): JSX.Element => {
   return (
-    <Flex direction="column" alignItems="center" gap={2}>
+    <Flex
+      direction="column"
+      alignItems="center"
+      gap={2}
+      onClick={() => {
+        onClick(searchName);
+      }}
+    >
       <Heading size="md">{name}</Heading>
       <Avatar size="2xl" name="Segun Adebayo" src={imageUrl} />
     </Flex>
@@ -34,11 +48,20 @@ const Home = (): JSX.Element => {
     navigate(`/search/${searchValue}`);
   };
 
+  const onSearchByCousine = (search: string) => {
+    navigate(`/search/${search}`);
+  };
+
   const renderRecipesCusines = (): JSX.Element => {
     return (
       <Flex justifyContent="space-between">
         {cusines.map((cusine) => (
-          <CusinesItem name={cusine.name} imageUrl={cusine.image} />
+          <CusinesItem
+            name={cusine.name}
+            imageUrl={cusine.image}
+            searchName={cusine.search}
+            onClick={onSearchByCousine}
+          />
         ))}
       </Flex>
     );
